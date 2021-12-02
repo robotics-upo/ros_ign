@@ -12,6 +12,7 @@ endif()
 
 find_package(catkin REQUIRED COMPONENTS
   image_transport
+  mav_msgs
   ros_ign_bridge
   roscpp
   sensor_msgs)
@@ -42,13 +43,13 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
 
   message(STATUS "Compiling against Ignition Fortress")
 else()
-  find_package(ignition-transport9 QUIET)
-  set(IGN_TRANSPORT_VER ${ignition-transport9_VERSION_MAJOR})
+  find_package(ignition-transport10 QUIET)
+  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
 
-  find_package(ignition-msgs6 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs6_VERSION_MAJOR})
+  find_package(ignition-msgs7 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
 
-  message(STATUS "Compiling against Ignition Dome")
+  message(STATUS "Compiling against Ignition Dome UPO Style")
 endif()
 
 catkin_package()
