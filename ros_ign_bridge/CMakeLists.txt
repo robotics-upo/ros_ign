@@ -41,6 +41,15 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "citadel")
 
   message(STATUS "Compiling against Ignition Citadel")
   add_definitions(-DIGNITION_CITADEL)
+elseif ("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+find_package(ignition-transport10 REQUIRED)
+set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+find_package(ignition-msgs7 REQUIRED)
+set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+message(STATUS "Compiling against Ignition Edifice")
+add_definitions(-DIGNITION_EDIFICE)
 elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
   find_package(ignition-transport11 REQUIRED)
   set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
@@ -57,7 +66,7 @@ else()
   find_package(ignition-msgs7 REQUIRED)
   set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
 
-  message(STATUS "Compiling UPO Style")
+  message(STATUS "Compiling against Ignition Dome")
   add_definitions(-DIGNITION_DOME)
 endif()
 
@@ -85,6 +94,8 @@ foreach(bridge ${bridge_executables})
     ignition-msgs${IGN_MSGS_VER}::core
     ignition-transport${IGN_TRANSPORT_VER}::core
   )
+  add_dependencies(${bridge} ${catkin_EXPORTED_TARGETS})
+  
   install(TARGETS ${bridge}
           DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   )
@@ -102,6 +113,8 @@ target_link_libraries(${bridge_lib}
   ignition-msgs${IGN_MSGS_VER}::core
   ignition-transport${IGN_TRANSPORT_VER}::core
 )
+
+add_dependencies(${bridge_lib} ${catkin_EXPORTED_TARGETS})
 
 catkin_package(INCLUDE_DIRS include
                LIBRARIES ${bridge_lib})
@@ -138,6 +151,7 @@ foreach(test_publisher ${test_publishers})
     gtest
     gtest_main
   )
+  add_dependencies(${test_publisher} ${catkin_EXPORTED_TARGETS})
 endforeach(test_publisher)
 
 foreach(test_subscriber ${test_subscribers})
@@ -149,4 +163,5 @@ foreach(test_subscriber ${test_subscribers})
     ignition-msgs${IGN_MSGS_VER}::core
     ignition-transport${IGN_TRANSPORT_VER}::core
   )
+  add_dependencies(test_${test_subscriber} ${catkin_EXPORTED_TARGETS})
 endforeach(test_subscriber)

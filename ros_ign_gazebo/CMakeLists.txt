@@ -31,6 +31,17 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "citadel")
   set(IGN_MSGS_VER ${ignition-msgs5_VERSION_MAJOR})
 
   message(STATUS "Compiling against Ignition Citadel")
+elseif("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+  find_package(ignition-gazebo5 REQUIRED)
+  set(IGN_GAZEBO_VER ${ignition-gazebo5_VERSION_MAJOR})
+
+  find_package(ignition-transport10 REQUIRED)
+  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  find_package(ignition-msgs7 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Edifice")
 elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
   find_package(ignition-gazebo6 REQUIRED)
   set(IGN_GAZEBO_VER ${ignition-gazebo6_VERSION_MAJOR})
@@ -52,7 +63,7 @@ else()
   find_package(ignition-msgs7 REQUIRED)
   set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
 
-  message(STATUS "Compiling UPO Style")
+  message(STATUS "Compiling against Edifice")
 endif()
 
 ign_find_package(gflags

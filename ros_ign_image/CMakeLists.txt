@@ -34,6 +34,14 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "citadel")
   set(IGN_MSGS_VER ${ignition-msgs5_VERSION_MAJOR})
 
   message(STATUS "Compiling against Ignition Citadel")
+elseif("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+  find_package(ignition-transport10 QUIET)
+  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  find_package(ignition-msgs7 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Edifice")
 elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
   find_package(ignition-transport11 QUIET)
   set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
@@ -43,13 +51,13 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
 
   message(STATUS "Compiling against Ignition Fortress")
 else()
-  find_package(ignition-transport10 QUIET)
+  find_package(ignition-transport11 QUIET)
   set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
 
-  find_package(ignition-msgs7 REQUIRED)
+  find_package(ignition-msgs8 REQUIRED)
   set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
 
-  message(STATUS "Compiling against Ignition Dome UPO Style")
+  message(STATUS "Compiling against Ignition Fortress")
 endif()
 
 catkin_package()
